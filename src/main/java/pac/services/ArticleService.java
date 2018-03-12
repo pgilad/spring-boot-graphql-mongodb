@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<Article> findAllUserArticles(List<String> userId);
+    List<Article> findAllUserArticles(List<String> userId, Integer first, Integer offset);
 }

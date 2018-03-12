@@ -3,8 +3,8 @@ schema {
 }
 
 type Query {
-    users(first: Int): [User]
-    user(id: String): User
+    users(first: Int, offset: Int): [User]
+    user(id: String!): User
 }
 
 type User {
@@ -13,12 +13,12 @@ type User {
     age: Int
     nationality: String
     createdAt: String
-    friends: [User]
-    articles: [Article]
+    friends(first: Int, offset: Int): [User]
+    articles(first: Int, offset: Int): [Article]
 }
 
 type Article {
-   id: String
-   title: String
-   minutesRead: Int
+    id: String
+    title: String
+    minutesRead: Int
 }

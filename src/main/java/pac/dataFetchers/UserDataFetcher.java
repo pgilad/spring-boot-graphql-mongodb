@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import pac.models.User;
 import pac.services.UserService;
 
-import java.util.Map;
-
 @Component
 public class UserDataFetcher implements DataFetcher<User> {
 
@@ -22,8 +20,8 @@ public class UserDataFetcher implements DataFetcher<User> {
 
     @Override
     public User get(DataFetchingEnvironment env) {
-        Map args = env.getArguments();
-        final ObjectId id = new ObjectId(String.valueOf(args.get("id")));
+        String userId = env.getArgument("id");
+        final ObjectId id = new ObjectId(userId);
         return userService.findOneById(id);
     }
 }

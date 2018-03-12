@@ -19,15 +19,13 @@ public class AllUsersDataFetcher implements DataFetcher<Page<User>> {
     }
 
     @Override
-    public Page<User> get(DataFetchingEnvironment environment) {
-        User user = environment.getSource();
-        final Integer first = environment.getArgument("first");
-        final Integer skip = environment.getArgument("skip");
-
-//        System.out.println(first);
+    public Page<User> get(DataFetchingEnvironment env) {
+        User user = env.getSource();
+        final Integer first = env.getArgument("first");
+        final Integer offset = env.getArgument("offset");
 
         return user == null ?
-                userService.findAllUsers(first) :
-                userService.findByIdIn(user.getFriendsIds());
+                userService.findAllUsers(first, offset) :
+                userService.findByIdIn(user.getFriendsIds(), first, offset);
     }
 }

@@ -8,7 +8,6 @@ import pac.models.Article;
 import pac.models.User;
 import pac.services.ArticleService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -24,10 +23,10 @@ public class ArticlesDataFetcher implements DataFetcher<List<Article>> {
     @Override
     public List<Article> get(DataFetchingEnvironment env) {
         User user = env.getSource();
-        List<String> articleIds = new ArrayList<>();
-        if (user != null) {
-            articleIds = user.getArticlesIds();
-        }
-        return articleService.findAllUserArticles(articleIds);
+        final Integer first = env.getArgument("first");
+        final Integer offset = env.getArgument("offset");
+
+        List<String> articleIds = user.getArticlesIds();
+        return articleService.findAllUserArticles(articleIds, first, offset);
     }
 }

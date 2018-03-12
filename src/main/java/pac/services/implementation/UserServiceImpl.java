@@ -15,6 +15,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final int DEFAULT_FIRST = 5;
+    private static final int DEFAULT_PAGE = 0;
     private final UserRepository userRepository;
 
     @Autowired
@@ -23,9 +25,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findAllUsers(Integer first) {
-        Integer count = Optional.ofNullable(first).orElse(5);
-        final PageRequest pageable = new PageRequest(0, count);
+    public Page<User> findAllUsers(Integer first, Integer offset) {
+        final Integer size = Optional.ofNullable(first).orElse(DEFAULT_FIRST);
+        final Integer page = Optional.ofNullable(offset).orElse(DEFAULT_PAGE);
+
+        final PageRequest pageable = new PageRequest(page, size);
         return userRepository.findAll(pageable);
     }
 
@@ -35,8 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findByIdIn(List<String> ids) {
-        final PageRequest pageRequest = new PageRequest(0, 5);
+    public Page<User> findByIdIn(List<String> ids, Integer first, Integer offset) {
+        final Integer size = Optional.ofNullable(first).orElse(DEFAULT_FIRST);
+        final Integer page = Optional.ofNullable(offset).orElse(DEFAULT_PAGE);
+
+        final PageRequest pageRequest = new PageRequest(page, size);
         return userRepository.findByIdIn(ids, pageRequest);
     }
 }
