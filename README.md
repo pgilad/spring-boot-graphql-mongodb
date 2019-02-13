@@ -16,4 +16,4 @@ Most of the code based on https://medium.com/oril/spring-boot-graphql-mongodb-87
 
 # License
 
-MIT
+MIT © [Gilad Peleg](https://www.giladpeleg.com)
